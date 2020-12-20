@@ -18,7 +18,7 @@ public class UserService {
 //    }
 
 
-    public Iterable<User> findAll() {
+    public List<User> findAll() {
         return  userDao.findAll();
     }
 

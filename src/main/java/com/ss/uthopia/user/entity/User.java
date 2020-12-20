@@ -1,15 +1,10 @@
 package com.ss.uthopia.user.entity;
 
-import com.ss.uthopia.AbstractEntity;
-
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name="users")
-@XmlRootElement
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
