@@ -10,4 +10,5 @@ import java.util.List;
 public interface TravelerDao extends CrudRepository<Traveler, Long> {
     @Override
     List<Traveler> findAll();
+
 }

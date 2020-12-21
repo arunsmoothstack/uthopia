@@ -2,6 +2,7 @@ package com.ss.uthopia.user.entity;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity(name = "Traveler")
@@ -71,8 +72,8 @@ public class Traveler {
         this.email = email;
     }
 
-    public ZonedDateTime getDob() {
-        return dob;
+    public String getDob() {
+        return dob.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     }
 
     public void setDob(ZonedDateTime dob) {
