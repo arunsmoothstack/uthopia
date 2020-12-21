@@ -39,6 +39,8 @@ public class UserController {
             users = USER_SERVICE.findByName(name);
         else
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        if(users.isEmpty())
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(users);
         return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
@@ -46,7 +48,7 @@ public class UserController {
     public ResponseEntity<User> findById(@PathVariable long id) {
         Optional<User> users= USER_SERVICE.findById(id);
         if(!users.isPresent()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
         return ResponseEntity.status(HttpStatus.OK).body(users.get());
     }
@@ -80,7 +82,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(BOOKING_SERVICE.findById(id).get());
         } catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
     }
 
