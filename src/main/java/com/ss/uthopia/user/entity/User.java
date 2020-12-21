@@ -3,6 +3,7 @@ package com.ss.uthopia.user.entity;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
+
 @Entity(name = "User")
 @Table(name="user")
 public class User {

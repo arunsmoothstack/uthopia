@@ -12,13 +12,21 @@ import java.util.Optional;
 public class UserService {
 
     private UserDao userDao;
-
     public UserService(UserDao userDao) {
         this.userDao = userDao;
     }
 
-    public List<User> findAll() {
-        return  userDao.findAll();
+
+    public List<User> findByNameAndUsername(String name, String username) {
+        return userDao.findByNameAndUsername(name, username);
+    }
+
+    public List<User> findByName(String name) {
+        return userDao.findByName(name);
+    }
+
+    public List<User> findByUsername(String username) {
+        return userDao.findByUsername(username);
     }
 
     public Optional<User> findById(long id) {
