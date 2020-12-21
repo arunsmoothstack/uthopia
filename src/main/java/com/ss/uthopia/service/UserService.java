@@ -1,8 +1,7 @@
-package com.ss.uthopia.user.service;
+package com.ss.uthopia.service;
 
-import com.ss.uthopia.user.dao.UserDao;
-import com.ss.uthopia.user.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ss.uthopia.dao.UserDao;
+import com.ss.uthopia.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,9 +1,9 @@
-package com.ss.uthopia.user.controller;
+package com.ss.uthopia.controller;
 
-import com.ss.uthopia.user.entity.Booking;
-import com.ss.uthopia.user.entity.User;
-import com.ss.uthopia.user.service.BookingService;
-import com.ss.uthopia.user.service.UserService;
+import com.ss.uthopia.entity.Booking;
+import com.ss.uthopia.entity.User;
+import com.ss.uthopia.service.BookingService;
+import com.ss.uthopia.service.UserService;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
