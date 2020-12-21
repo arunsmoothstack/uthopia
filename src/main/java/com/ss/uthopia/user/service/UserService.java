@@ -10,13 +10,12 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    @Autowired
+
     private UserDao userDao;
 
-//    public UserService() {
-//        //this.userDao = userDao;
-//    }
-
+    public UserService(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     public List<User> findAll() {
         return  userDao.findAll();
@@ -30,7 +29,15 @@ public class UserService {
         userDao.deleteById(id);
     }
 
-    public User createUser(User user) {
+    public User saveUser(User user) {
         return userDao.save(user);
+    }
+
+    public boolean userExists(long userId) {
+        return userDao.existsById(userId);
+    }
+
+    public User findUserById(Long id) {
+        return userDao.findById(id).get();
     }
 }

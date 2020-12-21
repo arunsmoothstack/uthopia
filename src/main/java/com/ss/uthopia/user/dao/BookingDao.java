@@ -1,14 +1,13 @@
 package com.ss.uthopia.user.dao;
 
-import com.ss.uthopia.user.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.ss.uthopia.user.entity.Booking;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 @Repository
-public interface UserDao extends CrudRepository<User, Long> {
+public interface BookingDao extends CrudRepository<Booking, Long> {
     @Override
-    List<User> findAll();
+    List<Booking> findAll();
 }
-
