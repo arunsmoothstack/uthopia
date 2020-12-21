@@ -1,6 +1,7 @@
 package com.ss.uthopia.user.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "booking")
 @Table(name = "booking")
@@ -16,11 +17,11 @@ public class Booking {
     })
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "booking_travelers",
             joinColumns = {@JoinColumn(name = "booking_id", referencedColumnName = "booking_id")},
-    inverseJoinColumns = {@JoinColumn(name = "traveler_id", referencedColumnName = "traveler_id")})
-    private Traveler traveler;
+    inverseJoinColumns = {@JoinColumn(name = "traveler_id")})
+    private List<Traveler> travelers;
 
     @Column(name = "is_active")
     private boolean isActive;
@@ -60,11 +61,11 @@ public class Booking {
         this.stripeId = stripeId;
     }
 
-    public Traveler getTraveler() {
-        return traveler;
+    public List<Traveler> getTravelers() {
+        return travelers;
     }
 
-    public void setTraveler(Traveler traveler) {
-        this.traveler = traveler;
+    public void setTravelers(List<Traveler> travelers) {
+        this.travelers = travelers;
     }
 }

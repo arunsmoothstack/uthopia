@@ -13,8 +13,11 @@ public class Traveler {
     @Column(name = "traveler_id")
     private int travelerId;
 
-    @OneToOne(mappedBy= "traveler")
-    private Booking booking;
+    @ManyToMany()
+    @JoinTable(name = "booking_travelers",
+            joinColumns = {@JoinColumn(name = "traveler_id", referencedColumnName = "traveler_id")},
+            inverseJoinColumns = {@JoinColumn(name = "booking_id", referencedColumnName = "booking_id")})
+    private List<Booking> booking;
 
     @Column(name = "name")
     private String name;
