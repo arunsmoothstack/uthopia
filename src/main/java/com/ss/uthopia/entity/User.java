@@ -1,14 +1,13 @@
-package com.ss.uthopia.user.entity;
+package com.ss.uthopia.entity;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity(name = "User")
 @Table(name="user")
 public class User {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "user_id")
     private Long userId;
     @Column(name = "name")

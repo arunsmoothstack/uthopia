@@ -1,9 +1,10 @@
-package com.ss.uthopia.user.controller;
+package com.ss.uthopia.controller;
 
-import com.ss.uthopia.user.entity.Booking;
-import com.ss.uthopia.user.entity.User;
-import com.ss.uthopia.user.service.BookingService;
-import com.ss.uthopia.user.service.UserService;
+import com.ss.uthopia.entity.Booking;
+import com.ss.uthopia.entity.User;
+import com.ss.uthopia.service.BookingService;
+import com.ss.uthopia.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,37 +15,39 @@ import java.util.*;
 @RestController
 @RequestMapping("api/users")
 public class UserController {
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private  BookingService bookingService;
 
-    private final UserService USER_SERVICE;
-    private final BookingService BOOKING_SERVICE;
 
-    UserController(UserService userService, BookingService bookingService) {
-        USER_SERVICE = userService;
-        BOOKING_SERVICE = bookingService;
-    }
-
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<List<User>> findById(@RequestParam(value = "name", required = false) String name,
                                                @RequestParam(value = "username", required = false) String username,
-                                               @RequestParam(value = "userId", required = false) Long userId) {
+                                               @RequestParam(value = "userId", required = false) Long userId,
+                                               @RequestParam(value = "findall", required = false) boolean findAll) {
         List<User> users;
-        if (userId != null) {
-            Optional<User> userOptional = USER_SERVICE.findById(userId);
+        if(findAll)
+            users = userService.findAll();
+        else if (userId != null) {
+            Optional<User> userOptional = userService.findById(userId);
             users = userOptional.isPresent() ? new ArrayList<>(Arrays.asList(userOptional.get())) : null;
-        } else if (username != null && name != null) {
-            users = USER_SERVICE.findByNameAndUsername(name, username);
-        } else if (username != null)
-            users = USER_SERVICE.findByUsername(username);
+        } else if (username != null && name != null)
+            users = userService.findByNameAndUsername(name, username);
+        else if (username != null)
+            users = userService.findByUsername(username);
         else if (name != null)
-            users = USER_SERVICE.findByName(name);
+            users = userService.findByName(name);
         else
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        if(users.isEmpty())
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(users);
         return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> findById(@PathVariable long id) {
-        Optional<User> users= USER_SERVICE.findById(id);
+        Optional<User> users= userService.findById(id);
         if(!users.isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
@@ -54,22 +57,22 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         try {
-            USER_SERVICE.deleteById(id);
+            userService.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Could not delete user with id: " + id + "\n" + e);
         }
         return ResponseEntity.status(HttpStatus.OK).body("User with id: " + id.toString() + " deleted successfully");
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<User> addUser(@RequestBody User users) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(USER_SERVICE.saveUser(users));
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(users));
     }
 
-    @PutMapping("/")
+    @PutMapping("")
     public ResponseEntity<User> updateUser(@RequestBody User users) {
-        if(USER_SERVICE.userExists(users.getUserId()))
-            return ResponseEntity.status(HttpStatus.OK).body(USER_SERVICE.saveUser(users));
+        if(userService.userExists(users.getUserId()))
+            return ResponseEntity.status(HttpStatus.OK).body(userService.saveUser(users));
         else
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
@@ -78,7 +81,7 @@ public class UserController {
     public ResponseEntity<Booking> getBookings(@PathVariable long id) {
         try {
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(BOOKING_SERVICE.findById(id).get());
+                    .body(bookingService.findById(id).get());
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }

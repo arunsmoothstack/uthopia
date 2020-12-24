@@ -1,10 +1,7 @@
-package com.ss.uthopia.user.dao;
+package com.ss.uthopia.dao;
 
-import com.ss.uthopia.user.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import com.ss.uthopia.entity.User;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 

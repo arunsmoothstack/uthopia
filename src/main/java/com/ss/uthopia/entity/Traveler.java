@@ -1,4 +1,4 @@
-package com.ss.uthopia.user.entity;
+package com.ss.uthopia.entity;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;

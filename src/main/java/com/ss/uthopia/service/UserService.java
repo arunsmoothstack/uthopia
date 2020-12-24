@@ -1,8 +1,7 @@
-package com.ss.uthopia.user.service;
+package com.ss.uthopia.service;
 
-import com.ss.uthopia.user.dao.UserDao;
-import com.ss.uthopia.user.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ss.uthopia.dao.UserDao;
+import com.ss.uthopia.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +15,9 @@ public class UserService {
         this.userDao = userDao;
     }
 
+    public List<User> findAll() {
+        return this.userDao.findAll();
+    }
 
     public List<User> findByNameAndUsername(String name, String username) {
         return userDao.findByNameAndUsername(name, username);
@@ -45,7 +47,4 @@ public class UserService {
         return userDao.existsById(userId);
     }
 
-    public User findUserById(Long id) {
-        return userDao.findById(id).get();
-    }
 }
