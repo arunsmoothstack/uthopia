@@ -15,6 +15,9 @@ public class UserService {
         this.userDao = userDao;
     }
 
+    public List<User> findAll() {
+        return this.userDao.findAll();
+    }
 
     public List<User> findByNameAndUsername(String name, String username) {
         return userDao.findByNameAndUsername(name, username);
@@ -44,7 +47,4 @@ public class UserService {
         return userDao.existsById(userId);
     }
 
-    public User findUserById(Long id) {
-        return userDao.findById(id).get();
-    }
 }
